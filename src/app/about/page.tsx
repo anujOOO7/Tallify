@@ -125,7 +125,7 @@ export default function AboutPage() {
               gap: 16,
             }}>
               {stats.map((stat) => (
-                <div key={stat.label} style={{
+                <div key={stat.label} className="glass-card-light" style={{
                   background: "#f7f7f8",
                   border: `1px solid ${BORDER}`,
                   borderRadius: 20,
@@ -184,7 +184,7 @@ export default function AboutPage() {
             gap: 16,
           }}>
             {values.map((v) => (
-              <div key={v.title} style={{
+              <div key={v.title} className="glass-card-light" style={{
                 background: "#ffffff",
                 border: `1px solid ${BORDER}`,
                 borderRadius: 16,
@@ -240,7 +240,7 @@ export default function AboutPage() {
           </div>
 
           {/* Founder card */}
-          <div style={{
+          <div className="glass-card-light" style={{
             maxWidth: 480,
             margin: "0 auto",
             background: "#f7f7f8",

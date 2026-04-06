@@ -68,7 +68,7 @@ export default function Security() {
           {/* Right: 2×2 grid */}
           <div className="security-pts-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
             {points.map((p) => (
-              <div key={p.title} style={{
+              <div key={p.title} className="glass-card" style={{
                 borderRadius: 20, padding: 20,
                 background: "rgba(255,255,255,0.05)",
                 border: "1px solid rgba(255,255,255,0.08)",

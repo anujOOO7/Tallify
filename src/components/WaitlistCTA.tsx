@@ -73,7 +73,7 @@ export default function WaitlistCTA() {
           </div>
 
           {/* Right: card */}
-          <div style={{
+          <div className="glass-card" style={{
             background: "rgba(255,255,255,0.04)",
             border: "1px solid rgba(255,255,255,0.08)",
             borderRadius: 20,

@@ -89,6 +89,7 @@ export default function Testimonials() {
           {testimonials.map((t) => (
             <div
               key={t.name}
+              className="glass-card-light"
               style={{
                 background: "white", borderRadius: 20, padding: 24,
                 border: `1px solid ${BORDER}`,

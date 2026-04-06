@@ -64,6 +64,7 @@ export default function Pricing() {
           {plans.map((plan) => (
             <div
               key={plan.name}
+              className={plan.popular ? "glass-card-popular" : "glass-card-light"}
               style={{
                 position: "relative", borderRadius: 32, padding: "36px 32px 32px",
                 display: "flex", flexDirection: "column",

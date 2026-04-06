@@ -149,7 +149,7 @@ export default function FeatureShowcase() {
           {cards.map((card) => (
             <div
               key={card.title}
-              className="feature-card feat-card-inner"
+              className="feature-card feat-card-inner glass-card-light"
               style={{
                 borderRadius: 22, background: CARD_BG,
                 border: `1px solid ${BORDER}`,
