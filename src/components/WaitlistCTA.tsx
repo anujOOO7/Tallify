@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { joinWaitlist } from "@/lib/supabase";
 
 const PRIMARY = "#f0724f";
 
@@ -14,7 +15,9 @@ export default function WaitlistCTA() {
   const [email, setEmail] = useState("");
   const [focused, setFocused] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [duplicate, setDuplicate] = useState(false);
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   return (
     <section style={{
@@ -90,11 +93,23 @@ export default function WaitlistCTA() {
                 color: PRIMARY, fontSize: 15, fontWeight: 600,
                 display: "flex", alignItems: "center", gap: 10,
               }}>
-                <span style={{ fontSize: 22 }}>🎉</span>
-                You&apos;re on the list! We&apos;ll be in touch soon.
+                <span style={{ fontSize: 22 }}>{duplicate ? "👀" : "🎉"}</span>
+                {duplicate
+                  ? "You're already on the waitlist! We'll be in touch soon."
+                  : "You're on the list! We'll be in touch soon."}
               </div>
             ) : (
-              <form onSubmit={(e) => { e.preventDefault(); if (!email.trim()) { setError(true); return; } setError(false); setSubmitted(true); }}>
+              <form onSubmit={async (e) => {
+                e.preventDefault();
+                if (!email.trim()) { setError(true); return; }
+                setError(false);
+                setLoading(true);
+                const result = await joinWaitlist(email, "waitlist_cta");
+                setLoading(false);
+                if (result === "duplicate") { setDuplicate(true); setSubmitted(true); }
+                else if (result === null) setSubmitted(true);
+                else setError(true);
+              }}>
                 <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.6)", marginBottom: 8 }}>
                   Email Address
                 </label>
@@ -121,18 +136,19 @@ export default function WaitlistCTA() {
                 )}
                 <button
                   type="submit"
+                  disabled={loading}
                   style={{
                     width: "100%", padding: "15px 24px", borderRadius: 999,
                     fontSize: 15, fontWeight: 700, color: "white",
-                    background: PRIMARY, border: "none", cursor: "pointer",
+                    background: PRIMARY, border: "none", cursor: loading ? "not-allowed" : "pointer",
                     display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-                    transition: "opacity 0.18s",
+                    transition: "opacity 0.18s", opacity: loading ? 0.7 : 1,
                     boxShadow: "0 8px 32px rgba(232,96,74,0.35)",
                   }}
-                  onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.88")}
-                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
+                  onMouseEnter={(e) => { if (!loading) (e.currentTarget as HTMLElement).style.opacity = "0.88"; }}
+                  onMouseLeave={(e) => { if (!loading) (e.currentTarget as HTMLElement).style.opacity = "1"; }}
                 >
-                  <span>⚡</span> Join the Waitlist
+                  {loading ? "Joining…" : <><span>⚡</span> Join the Waitlist</>}
                 </button>
               </form>
             )}

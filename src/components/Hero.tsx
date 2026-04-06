@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { joinWaitlist } from "@/lib/supabase";
 
 const PRIMARY = "#f0724f";
 const PRIMARY_LIGHT = "#fdf1ef";
@@ -16,7 +17,9 @@ export default function Hero() {
   const [email, setEmail] = useState("");
   const [focused, setFocused] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [duplicate, setDuplicate] = useState(false);
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   return (
     <section
@@ -85,16 +88,23 @@ export default function Hero() {
                   padding: "16px 20px", borderRadius: 16,
                   background: PRIMARY_LIGHT, color: PRIMARY, fontSize: 14, fontWeight: 500,
                 }}>
-                  <span style={{ fontSize: 20 }}>🎉</span>
-                  You&apos;re on the list! We&apos;ll reach out soon.
+                  <span style={{ fontSize: 20 }}>{duplicate ? "👀" : "🎉"}</span>
+                  {duplicate
+                    ? "You're already on the waitlist! We'll reach out soon."
+                    : "You're on the list! We'll reach out soon."}
                 </div>
               ) : (
                 <form
-                  onSubmit={(e) => {
+                  onSubmit={async (e) => {
                     e.preventDefault();
                     if (!email.trim()) { setError(true); return; }
                     setError(false);
-                    setSubmitted(true);
+                    setLoading(true);
+                    const result = await joinWaitlist(email, "hero");
+                    setLoading(false);
+                    if (result === "duplicate") { setDuplicate(true); setSubmitted(true); }
+                    else if (result === null) setSubmitted(true);
+                    else setError(true);
                   }}
                   style={{ maxWidth: 460 }}
                 >
@@ -132,15 +142,17 @@ export default function Hero() {
                     </div>
                     <button
                       type="submit"
+                      disabled={loading}
                       style={{
                         padding: "13px 24px", borderRadius: 999, fontSize: 14, fontWeight: 600,
-                        background: PRIMARY, color: "white", border: "none", cursor: "pointer",
+                        background: PRIMARY, color: "white", border: "none", cursor: loading ? "not-allowed" : "pointer",
                         whiteSpace: "nowrap", transition: "opacity 0.18s", flexShrink: 0,
+                        opacity: loading ? 0.7 : 1,
                       }}
-                      onMouseEnter={(e) => ((e.target as HTMLElement).style.opacity = "0.88")}
-                      onMouseLeave={(e) => ((e.target as HTMLElement).style.opacity = "1")}
+                      onMouseEnter={(e) => { if (!loading) (e.target as HTMLElement).style.opacity = "0.88"; }}
+                      onMouseLeave={(e) => { if (!loading) (e.target as HTMLElement).style.opacity = "1"; }}
                     >
-                      Join Waitlist
+                      {loading ? "Joining…" : "Join Waitlist"}
                     </button>
                   </div>
                   {/* Error message */}
