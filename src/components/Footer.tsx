@@ -18,7 +18,7 @@ export default function Footer() {
   return (
     <footer id="contact" style={{ padding: "64px 0 32px", background: DARK_BG, borderTop: `1px solid ${DARK_BORDER}` }}>
       <div style={{ maxWidth: 1152, margin: "0 auto", padding: "0 24px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 40, marginBottom: 48 }}>
+        <div className="footer-grid" style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 40, marginBottom: 48 }}>
 
           {/* Brand */}
           <div>
@@ -67,7 +67,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div style={{
+        <div className="footer-bottom" style={{
           display: "flex", alignItems: "center", justifyContent: "space-between",
           paddingTop: 24, borderTop: `1px solid ${DARK_BORDER}`,
           fontSize: 13, color: TEXT_MUTED,

@@ -76,7 +76,7 @@ export default function Testimonials() {
           </span>
         </div>
 
-        <h2 style={{
+        <h2 className="section-h2" style={{
           fontSize: 48, fontWeight: 800, textAlign: "center",
           letterSpacing: "-0.03em", marginBottom: 56, color: INK,
         }}>
@@ -85,7 +85,7 @@ export default function Testimonials() {
         </h2>
 
         {/* Grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
+        <div className="testi-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
           {testimonials.map((t) => (
             <div
               key={t.name}

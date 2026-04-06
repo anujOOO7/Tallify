@@ -56,7 +56,7 @@ export default function Navbar() {
           </a>
 
           {/* Desktop nav links */}
-          <div style={{ display: "flex", alignItems: "center", gap: 2 }}>
+          <div className="nav-desktop-links" style={{ display: "flex", alignItems: "center", gap: 2 }}>
             {navLinks.map((link) => (
               <a
                 key={link.label}
@@ -86,6 +86,7 @@ export default function Navbar() {
           {/* CTA + mobile toggle */}
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <a
+              className="nav-cta-btn"
               href="#waitlist"
               style={{
                 padding: "10px 22px", borderRadius: 999,
@@ -99,6 +100,7 @@ export default function Navbar() {
               Join Waitlist
             </a>
             <button
+              className="nav-mobile-btn"
               onClick={() => setMenuOpen(!menuOpen)}
               style={{
                 display: "none",

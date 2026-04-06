@@ -51,7 +51,7 @@ export default function Pricing() {
           </span>
         </div>
 
-        <h2 style={{ fontSize: 48, fontWeight: 800, textAlign: "center", letterSpacing: "-0.03em", marginBottom: 16, color: INK }}>
+        <h2 className="pricing-h2" style={{ fontSize: 48, fontWeight: 800, textAlign: "center", letterSpacing: "-0.03em", marginBottom: 16, color: INK }}>
           Start free. Upgrade when you're ready.
         </h2>
         <p style={{ textAlign: "center", fontSize: 17, color: INK2, maxWidth: 440, margin: "0 auto 56px" }}>
@@ -59,7 +59,7 @@ export default function Pricing() {
         </p>
 
         {/* Cards */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 28, maxWidth: 1080, margin: "0 auto" }}>
+        <div className="pricing-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 28, maxWidth: 1080, margin: "0 auto" }}>
           {plans.map((plan) => (
             <div
               key={plan.name}

@@ -22,7 +22,7 @@ export default function Security() {
       background: "linear-gradient(135deg, #12111f 0%, #1a1830 50%, #12111f 100%)",
     }}>
       <div style={{ maxWidth: 1152, margin: "0 auto", padding: "0 24px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}>
+        <div className="security-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}>
 
           {/* Left */}
           <div>
@@ -40,7 +40,7 @@ export default function Security() {
               </span>
             </div>
 
-            <h2 style={{ fontSize: 48, fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1.1, marginBottom: 16, color: "white" }}>
+            <h2 className="security-h2" style={{ fontSize: 48, fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1.1, marginBottom: 16, color: "white" }}>
               Your data is safe.{" "}
               <span style={{ color: PRIMARY }}>Always.</span>
             </h2>
@@ -66,7 +66,7 @@ export default function Security() {
           </div>
 
           {/* Right: 2×2 grid */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <div className="security-pts-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
             {points.map((p) => (
               <div key={p.title} style={{
                 borderRadius: 20, padding: 20,

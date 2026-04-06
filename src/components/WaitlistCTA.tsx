@@ -14,6 +14,7 @@ export default function WaitlistCTA() {
   const [email, setEmail] = useState("");
   const [focused, setFocused] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(false);
 
   return (
     <section style={{
@@ -21,7 +22,7 @@ export default function WaitlistCTA() {
       padding: "96px 24px",
     }}>
       <div style={{ maxWidth: 1152, margin: "0 auto" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }}>
+        <div className="waitlist-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }}>
 
           {/* Left */}
           <div>
@@ -37,7 +38,7 @@ export default function WaitlistCTA() {
             </div>
 
             {/* Heading */}
-            <h2 style={{
+            <h2 className="waitlist-h2" style={{
               fontSize: 52, fontWeight: 800, color: "white",
               letterSpacing: "-0.03em", lineHeight: 1.1, marginBottom: 20,
             }}>
@@ -54,7 +55,7 @@ export default function WaitlistCTA() {
             <div style={{ height: 1, background: "rgba(255,255,255,0.08)", marginBottom: 32 }} />
 
             {/* Stats */}
-            <div style={{ display: "flex", gap: 48 }}>
+            <div className="waitlist-stats" style={{ display: "flex", gap: 48 }}>
               {[
                 { value: "Free", label: "To join" },
                 { value: "AI-first", label: "Smart features" },
@@ -93,27 +94,31 @@ export default function WaitlistCTA() {
                 You&apos;re on the list! We&apos;ll be in touch soon.
               </div>
             ) : (
-              <form onSubmit={(e) => { e.preventDefault(); if (email) setSubmitted(true); }}>
+              <form onSubmit={(e) => { e.preventDefault(); if (!email.trim()) { setError(true); return; } setError(false); setSubmitted(true); }}>
                 <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.6)", marginBottom: 8 }}>
                   Email Address
                 </label>
                 <input
                   type="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => { setEmail(e.target.value); if (error) setError(false); }}
                   onFocus={() => setFocused(true)}
                   onBlur={() => setFocused(false)}
                   placeholder="you@example.com"
-                  required
                   style={{
                     width: "100%", padding: "14px 18px", borderRadius: 10, fontSize: 14,
                     background: "rgba(255,255,255,0.06)",
-                    border: `1.5px solid ${focused ? "rgba(232,96,74,0.6)" : "rgba(255,255,255,0.1)"}`,
-                    outline: "none", color: "white", marginBottom: 14,
+                    border: `1.5px solid ${error ? PRIMARY : focused ? "rgba(232,96,74,0.6)" : "rgba(255,255,255,0.1)"}`,
+                    outline: "none", color: "white", marginBottom: error ? 6 : 14,
                     transition: "border-color 0.18s",
                     boxSizing: "border-box",
                   }}
                 />
+                {error && (
+                  <p style={{ fontSize: 13, color: PRIMARY, fontWeight: 500, marginBottom: 10, paddingLeft: 2 }}>
+                    Please enter your email address
+                  </p>
+                )}
                 <button
                   type="submit"
                   style={{

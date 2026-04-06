@@ -51,10 +51,10 @@ export default function FAQ() {
   return (
     <section style={{ padding: "96px 0", background: BG }}>
       <div style={{ maxWidth: 1152, margin: "0 auto", padding: "0 24px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "2fr 3fr", gap: 80, alignItems: "flex-start" }}>
+        <div className="faq-grid" style={{ display: "grid", gridTemplateColumns: "2fr 3fr", gap: 80, alignItems: "flex-start" }}>
 
           {/* ── Left column ── */}
-          <div style={{ position: "sticky", top: 96 }}>
+          <div className="faq-sticky" style={{ position: "sticky", top: 96 }}>
             {/* Badge */}
             <span style={{
               display: "inline-flex", alignItems: "center", gap: 6,
@@ -70,7 +70,7 @@ export default function FAQ() {
               FAQ
             </span>
 
-            <h2 style={{
+            <h2 className="faq-h2" style={{
               fontSize: 42, fontWeight: 800, lineHeight: 1.15,
               letterSpacing: "-0.03em", color: INK, marginBottom: 16,
             }}>

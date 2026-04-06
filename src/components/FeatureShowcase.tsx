@@ -130,7 +130,7 @@ export default function FeatureShowcase() {
           </span>
         </div>
 
-        <h2 style={{
+        <h2 className="section-h2" style={{
           fontSize: 48, fontWeight: 800, textAlign: "center" as const,
           letterSpacing: "-0.03em", marginBottom: 12, color: INK,
         }}>
@@ -145,7 +145,7 @@ export default function FeatureShowcase() {
         </p>
 
         {/* 3-column grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 20 }}>
+        <div className="feat-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 20 }}>
           {cards.map((card) => (
             <div
               key={card.title}

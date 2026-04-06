@@ -72,3 +72,62 @@ h1, h2, h3, h4, h5, h6 {
 .feature-card:hover .feature-card-img {
   transform: scale(1.07);
 }
+
+/* ── Mobile responsiveness ── */
+
+@media (max-width: 767px) {
+  /* Navbar */
+  .nav-desktop-links { display: none !important; }
+  .nav-mobile-btn    { display: block !important; }
+  .nav-cta-btn       { display: none !important; }
+
+  /* Hero */
+  .hero-grid      { grid-template-columns: 1fr !important; gap: 0 !important; }
+  .hero-phone-col { display: none !important; }
+  .hero-h1        { font-size: 38px !important; }
+  .hero-stats     { gap: 24px !important; }
+  .hero-form-row  { flex-direction: column !important; align-items: stretch !important; }
+
+  /* Shared section heading */
+  .section-h2 { font-size: 30px !important; }
+
+  /* Feature Showcase */
+  .feat-grid { grid-template-columns: 1fr !important; }
+
+  /* Security */
+  .security-grid    { grid-template-columns: 1fr !important; gap: 40px !important; }
+  .security-h2      { font-size: 34px !important; }
+  .security-pts-grid { grid-template-columns: 1fr 1fr !important; }
+
+  /* Pricing */
+  .pricing-grid { grid-template-columns: 1fr !important; max-width: 480px !important; }
+  .pricing-h2   { font-size: 30px !important; }
+
+  /* Testimonials */
+  .testi-grid { grid-template-columns: 1fr !important; }
+
+  /* FAQ */
+  .faq-grid   { grid-template-columns: 1fr !important; gap: 24px !important; }
+  .faq-sticky { position: relative !important; top: auto !important; }
+  .faq-h2     { font-size: 30px !important; }
+
+  /* WaitlistCTA */
+  .waitlist-grid  { grid-template-columns: 1fr !important; gap: 40px !important; }
+  .waitlist-h2    { font-size: 34px !important; }
+  .waitlist-stats { gap: 24px !important; }
+
+  /* Footer */
+  .footer-grid   { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
+  .footer-bottom {
+    flex-direction: column !important;
+    gap: 8px !important;
+    text-align: center !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-h1          { font-size: 32px !important; }
+  .security-pts-grid { grid-template-columns: 1fr !important; }
+  .footer-grid      { grid-template-columns: 1fr !important; }
+  .pricing-grid     { max-width: 100% !important; }
+}

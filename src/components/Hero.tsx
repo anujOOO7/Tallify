@@ -42,7 +42,7 @@ export default function Hero() {
       }} />
 
       <div style={{ maxWidth: 1152, margin: "0 auto", padding: "0 24px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "center" }}>
+        <div className="hero-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "center" }}>
 
           {/* Left column */}
           <div style={{ padding: "32px 0" }}>
@@ -61,7 +61,7 @@ export default function Hero() {
             </div>
 
             {/* Heading */}
-            <h1 style={{
+            <h1 className="hero-h1" style={{
               fontSize: 60, fontWeight: 800, lineHeight: 1.08,
               letterSpacing: "-0.03em", marginBottom: 24, color: INK,
             }}>
@@ -104,7 +104,7 @@ export default function Hero() {
                   }}
                   style={{ maxWidth: 460 }}
                 >
-                  <div style={{ display: "flex", gap: 12, marginBottom: error ? 8 : 0 }}>
+                  <div className="hero-form-row" style={{ display: "flex", gap: 12, marginBottom: error ? 8 : 0 }}>
                     {/* Input wrapper for icon positioning */}
                     <div style={{ flex: 1, position: "relative" }}>
                       <input
@@ -166,7 +166,7 @@ export default function Hero() {
             </p>
 
             {/* Stats */}
-            <div style={{ display: "flex", gap: 40, flexWrap: "wrap" }}>
+            <div className="hero-stats" style={{ display: "flex", gap: 40, flexWrap: "wrap" }}>
               {[
                 { value: "₹0", label: "To get started" },
                 { value: "3 min", label: "Setup time" },
@@ -181,7 +181,7 @@ export default function Hero() {
           </div>
 
           {/* Right column: phone mockup */}
-          <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-end", height: 600, position: "relative" }}>
+          <div className="hero-phone-col" style={{ display: "flex", justifyContent: "center", alignItems: "flex-end", height: 600, position: "relative" }}>
             <PhoneMockup />
           </div>
         </div>

@@ -41,7 +41,7 @@ export default function HowItWorks() {
           </span>
         </div>
 
-        <h2 style={{
+        <h2 className="section-h2" style={{
           fontSize: 48, fontWeight: 800, textAlign: "center" as const,
           letterSpacing: "-0.03em", marginBottom: 12, color: INK,
         }}>
