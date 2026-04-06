@@ -9,9 +9,7 @@ const supabaseAdmin = createClient(
 );
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
+  service: "gmail",   // auto-selects host, port & TLS for Gmail
   auth: {
     user: process.env.GMAIL_USER,
     pass: process.env.GMAIL_APP_PASSWORD,
@@ -42,9 +40,9 @@ export async function POST(req: NextRequest) {
     .from("waitlist")
     .select("*", { count: "exact", head: true });
 
-  // Send email notification (fire-and-forget, don't block response)
-  transporter
-    .sendMail({
+  // Send email notification
+  try {
+    await transporter.sendMail({
       from: `"Tallify Waitlist" <${process.env.GMAIL_USER}>`,
       to: "anuj2004185@gmail.com",
       subject: `🎉 New Waitlist Signup — ${email.trim().toLowerCase()}`,
@@ -81,8 +79,11 @@ export async function POST(req: NextRequest) {
           </p>
         </div>
       `,
-    })
-    .catch((err) => console.error("Email send failed:", err));
+    });
+    console.log("✅ Notification email sent for:", email);
+  } catch (err) {
+    console.error("❌ Email send failed:", err);
+  }
 
   return NextResponse.json({ status: "success", count });
 }
