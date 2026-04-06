@@ -138,7 +138,7 @@ export default function FeatureShowcase() {
         </h2>
 
         <p style={{
-          textAlign: "center" as const, fontSize: 17, color: INK2,
+          textAlign: "center" as const, fontSize: 17, color: INK3,
           maxWidth: 520, margin: "0 auto 56px", lineHeight: 1.6,
         }}>
           From tracking every transaction to automating your allocations - Tallify handles it all.
@@ -149,7 +149,7 @@ export default function FeatureShowcase() {
           {cards.map((card) => (
             <div
               key={card.title}
-              className="feature-card"
+              className="feature-card feat-card-inner"
               style={{
                 borderRadius: 22, background: CARD_BG,
                 border: `1px solid ${BORDER}`,

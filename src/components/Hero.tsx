@@ -66,19 +66,13 @@ export default function Hero() {
               letterSpacing: "-0.03em", marginBottom: 24, color: INK,
             }}>
               Your money,{" "}
-              <span style={{ color: PRIMARY, fontStyle: "italic", display: "block" }}>
-                finally makes
-              </span>
-              <span style={{ color: PRIMARY, fontStyle: "italic" }}>
-                sense
+              <span className="hero-em" style={{ color: PRIMARY, fontStyle: "italic" }}>
+                finally makes sense
               </span>
             </h1>
 
-            {/* Underline */}
-            <div style={{ width: 72, height: 4, borderRadius: 2, background: PRIMARY, marginBottom: 24 }} />
-
             {/* Description */}
-            <p style={{ fontSize: 17, color: INK2, lineHeight: 1.7, maxWidth: 460, marginBottom: 32 }}>
+            <p style={{ fontSize: 17, color: INK3, lineHeight: 1.7, maxWidth: 460, marginBottom: 32 }}>
               Tallify connects to your Indian bank, automatically tracks every transaction,
               and turns raw numbers into insights you can actually act on, every single day.
             </p>
@@ -296,7 +290,7 @@ function PhoneMockup() {
       </div>
 
       {/* Floating: net balance */}
-      <div style={{
+      <div className="phone-float" style={{
         position: "absolute", left: -90, top: 80,
         borderRadius: 16, padding: "12px 16px", background: "white",
         border: `1px solid ${BORDER}`, boxShadow: "0 8px 32px rgba(0,0,0,0.10)",
@@ -306,7 +300,7 @@ function PhoneMockup() {
       </div>
 
       {/* Floating: AI sorted */}
-      <div style={{
+      <div className="phone-float" style={{
         position: "absolute", right: -90, top: 120,
         borderRadius: 16, padding: "12px 16px", background: "white",
         border: `1px solid ${BORDER}`, boxShadow: "0 8px 32px rgba(0,0,0,0.10)",
@@ -319,7 +313,7 @@ function PhoneMockup() {
       </div>
 
       {/* Floating: auto-synced */}
-      <div style={{
+      <div className="phone-float" style={{
         position: "absolute", left: -80, bottom: 80,
         borderRadius: 16, padding: "12px 16px", background: "white",
         border: `1px solid ${BORDER}`, boxShadow: "0 8px 32px rgba(0,0,0,0.10)",

@@ -94,9 +94,9 @@ export default function HowItWorks() {
                 flexShrink: 0,
                 width: 56,
                 height: 56,
-                borderRadius: "50%",
-                background: i === 0 ? PRIMARY : PRIMARY_LIGHT,
-                border: `2px solid ${i === 0 ? PRIMARY : "#f5d5cf"}`,
+                borderRadius: 14,
+                background: i === 0 ? PRIMARY : i === 1 ? "#1e1e3f" : `linear-gradient(135deg, ${PRIMARY} 0%, #8b5cf6 100%)`,
+                border: "none",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -105,7 +105,7 @@ export default function HowItWorks() {
                 <span style={{
                   fontSize: 14,
                   fontWeight: 800,
-                  color: i === 0 ? "white" : PRIMARY,
+                  color: "white",
                   letterSpacing: "0.02em",
                 }}>
                   {step.num}

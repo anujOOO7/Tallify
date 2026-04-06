@@ -54,6 +54,7 @@ export default function Features() {
 
         {/* Heading */}
         <h2
+          className="section-h2"
           style={{
             fontSize: 48,
             fontWeight: 800,
@@ -71,7 +72,7 @@ export default function Features() {
           style={{
             textAlign: "center" as const,
             fontSize: 17,
-            color: INK2,
+            color: INK3,
             maxWidth: 480,
             margin: "0 auto 0",
           }}

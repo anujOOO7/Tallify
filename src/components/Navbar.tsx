@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
 const PRIMARY = "#f0724f";
@@ -8,24 +9,120 @@ const PRIMARY_LIGHT = "#fdf1ef";
 const INK = "#0b0b1a";
 const INK2 = "#4a4a5a";
 
+// href = real page route | section = same-page smooth scroll
 const navLinks = [
-  { label: "Home",     href: "/" },
-  { label: "Features", href: "/#features" },
-  { label: "Pricing",  href: "/#pricing" },
-  { label: "About",    href: "/about" },
-  { label: "Contact",  href: "/contact" },
+  { label: "Home",     href: "/",          section: null },
+  { label: "Features", href: "/features",  section: "features" },
+  { label: "Pricing",  href: "/pricing",   section: "pricing" },
+  { label: "About",    href: "/about",     section: null },
+  { label: "Contact",  href: "/contact",   section: null },
 ];
 
+// Map section id → clean URL path
+const sectionPath: Record<string, string> = {
+  features: "/features",
+  pricing:  "/pricing",
+};
+
+function scrollToSection(section: string | null) {
+  if (!section) {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
+  const el = document.getElementById(section);
+  if (el) {
+    const top = el.getBoundingClientRect().top + window.scrollY - 64;
+    window.scrollTo({ top, behavior: "smooth" });
+  }
+}
+
 export default function Navbar() {
-  const [scrolled, setScrolled]   = useState(false);
-  const [menuOpen, setMenuOpen]   = useState(false);
-  const [active, setActive]       = useState("Home");
+  const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const getActiveFromPath = (path: string) => {
+    if (path === "/about")    return "About";
+    if (path === "/contact")  return "Contact";
+    if (path === "/features") return "Features";
+    if (path === "/pricing")  return "Pricing";
+    return "Home";
+  };
+
+  const [active, setActive] = useState(() => getActiveFromPath(pathname));
+
+  // Sync active with pathname on navigation
+  useEffect(() => {
+    setActive(getActiveFromPath(pathname));
+  }, [pathname]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Auto-highlight section links + update URL on scroll (home page only)
+  useEffect(() => {
+    if (pathname !== "/") return;
+
+    const sectionLinks = navLinks.filter((l) => l.section);
+    const observers: IntersectionObserver[] = [];
+
+    sectionLinks.forEach((link) => {
+      const el = document.getElementById(link.section!);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActive(link.label);
+            history.replaceState(null, "", sectionPath[link.section!] ?? "/");
+          }
+        },
+        { rootMargin: "-50% 0px -45% 0px", threshold: 0 }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+
+    const onScroll = () => {
+      if (window.scrollY < 80) {
+        setActive("Home");
+        history.replaceState(null, "", "/");
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      observers.forEach((o) => o.disconnect());
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [pathname]);
+
+  const handleClick = (
+    e: React.MouseEvent,
+    link: typeof navLinks[0]
+  ) => {
+    if (!link.section) {
+      // Real page navigation
+      setActive(link.label);
+      setMenuOpen(false);
+      return;
+    }
+    e.preventDefault();
+    setActive(link.label);
+    setMenuOpen(false);
+
+    if (pathname !== "/") {
+      // On sub-page — store target, navigate home cleanly
+      sessionStorage.setItem("scrollTo", link.section);
+      window.location.href = "/";
+    } else {
+      // Already on home — scroll + update URL
+      scrollToSection(link.section);
+      history.replaceState(null, "", sectionPath[link.section] ?? "/");
+    }
+  };
 
   return (
     <>
@@ -42,11 +139,9 @@ export default function Navbar() {
         }}>
 
           {/* Logo */}
-          <a href="#" style={{ display: "flex", alignItems: "center", gap: 9, textDecoration: "none" }}>
-            {/* Icon — stylised "T" tab shape */}
+          <a href="/" style={{ display: "flex", alignItems: "center", gap: 9, textDecoration: "none" }}>
             <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
               <rect width="34" height="34" rx="10" fill={PRIMARY}/>
-              {/* coin-stack shape */}
               <ellipse cx="17" cy="13" rx="8" ry="3.2" fill="rgba(255,255,255,0.30)"/>
               <ellipse cx="17" cy="13" rx="8" ry="3.2" stroke="white" strokeWidth="1.6"/>
               <path d="M9 13v5c0 1.77 3.58 3.2 8 3.2s8-1.43 8-3.2v-5" stroke="white" strokeWidth="1.6" fill="none"/>
@@ -61,7 +156,7 @@ export default function Navbar() {
               <a
                 key={link.label}
                 href={link.href}
-                onClick={() => setActive(link.label)}
+                onClick={(e) => handleClick(e, link)}
                 style={{
                   padding: "8px 14px", borderRadius: 8,
                   fontSize: 14, fontWeight: active === link.label ? 600 : 500,
@@ -88,6 +183,7 @@ export default function Navbar() {
             <a
               className="nav-cta-btn"
               href="#waitlist"
+              onClick={(e) => { e.preventDefault(); scrollToSection("waitlist"); }}
               style={{
                 padding: "10px 22px", borderRadius: 999,
                 fontSize: 14, fontWeight: 600,
@@ -135,7 +231,7 @@ export default function Navbar() {
               <a
                 key={link.label}
                 href={link.href}
-                onClick={() => { setActive(link.label); setMenuOpen(false); }}
+                onClick={(e) => handleClick(e, link)}
                 style={{
                   padding: "12px 16px", borderRadius: 10, fontSize: 14,
                   fontWeight: active === link.label ? 600 : 500,
@@ -149,7 +245,7 @@ export default function Navbar() {
             ))}
             <a
               href="#waitlist"
-              onClick={() => setMenuOpen(false)}
+              onClick={(e) => { e.preventDefault(); scrollToSection("waitlist"); setMenuOpen(false); }}
               style={{
                 marginTop: 16, textAlign: "center", padding: "12px 20px",
                 borderRadius: 999, fontSize: 14, fontWeight: 600,

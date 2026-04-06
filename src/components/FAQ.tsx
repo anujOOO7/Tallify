@@ -77,7 +77,7 @@ export default function FAQ() {
               Frequently asked<br />questions
             </h2>
 
-            <p style={{ fontSize: 15, color: INK2, lineHeight: 1.7 }}>
+            <p style={{ fontSize: 15, color: INK3, lineHeight: 1.7 }}>
               Still have questions?{" "}
               <a href="#contact" style={{ color: PRIMARY, fontWeight: 600, textDecoration: "none" }}>
                 Send us a message

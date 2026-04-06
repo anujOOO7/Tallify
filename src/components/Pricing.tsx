@@ -7,6 +7,7 @@ const INK2 = "#4a4a5a";
 const INK3 = "#9191a0";
 const BORDER = "#e8e8ec";
 const BG2 = "#f7f7f8";
+const DARK_NAV = "#1e1e3f";
 
 const plans = [
   {
@@ -54,7 +55,7 @@ export default function Pricing() {
         <h2 className="pricing-h2" style={{ fontSize: 48, fontWeight: 800, textAlign: "center", letterSpacing: "-0.03em", marginBottom: 16, color: INK }}>
           Start free. Upgrade when you're ready.
         </h2>
-        <p style={{ textAlign: "center", fontSize: 17, color: INK2, maxWidth: 440, margin: "0 auto 56px" }}>
+        <p style={{ textAlign: "center", fontSize: 17, color: INK3, maxWidth: 440, margin: "0 auto 56px" }}>
           No hidden fees. No lock-in. Cancel anytime.
         </p>
 
@@ -66,32 +67,32 @@ export default function Pricing() {
               style={{
                 position: "relative", borderRadius: 32, padding: "36px 32px 32px",
                 display: "flex", flexDirection: "column",
-                background: plan.popular ? PRIMARY : "white",
+                background: plan.popular ? DARK_NAV : "white",
                 border: plan.popular ? "none" : `1.5px solid ${BORDER}`,
-                boxShadow: plan.popular ? "0 24px 64px rgba(232,96,74,0.28)" : "0 2px 16px rgba(11,11,26,0.05)",
+                boxShadow: plan.popular ? "0 24px 64px rgba(30,30,63,0.32)" : "0 2px 16px rgba(11,11,26,0.05)",
                 transition: "transform 0.2s, box-shadow 0.2s",
               }}
               onMouseEnter={(e) => {
                 const el = e.currentTarget as HTMLElement;
                 el.style.transform = "translateY(-6px)";
                 el.style.boxShadow = plan.popular
-                  ? "0 32px 80px rgba(232,96,74,0.35)"
+                  ? "0 32px 80px rgba(30,30,63,0.40)"
                   : "0 16px 48px rgba(11,11,26,0.10)";
               }}
               onMouseLeave={(e) => {
                 const el = e.currentTarget as HTMLElement;
                 el.style.transform = "translateY(0)";
                 el.style.boxShadow = plan.popular
-                  ? "0 24px 64px rgba(232,96,74,0.28)"
+                  ? "0 24px 64px rgba(30,30,63,0.32)"
                   : "0 2px 16px rgba(11,11,26,0.05)";
               }}
             >
               {plan.popular && (
                 <div style={{ position: "absolute", top: -14, left: "50%", transform: "translateX(-50%)" }}>
                   <span style={{
-                    background: "white", color: PRIMARY,
+                    background: PRIMARY, color: "white",
                     fontSize: 11, fontWeight: 700, padding: "5px 16px",
-                    borderRadius: 999, boxShadow: "0 2px 12px rgba(0,0,0,0.12)",
+                    borderRadius: 999, boxShadow: "0 8px 24px rgba(240,114,79,0.35)",
                     whiteSpace: "nowrap",
                   }}>
                     Most Popular
@@ -143,8 +144,8 @@ export default function Pricing() {
                 style={{
                   display: "block", textAlign: "center", padding: "14px 20px",
                   borderRadius: 999, fontSize: 14, fontWeight: 700,
-                  background: plan.popular ? "white" : PRIMARY,
-                  color: plan.popular ? PRIMARY : "white",
+                  background: plan.popular ? PRIMARY : PRIMARY,
+                  color: "white",
                   textDecoration: "none", marginTop: 32,
                   transition: "opacity 0.18s",
                   letterSpacing: "0.01em",

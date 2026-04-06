@@ -73,6 +73,44 @@ h1, h2, h3, h4, h5, h6 {
   transform: scale(1.07);
 }
 
+/* ── Hero em underline decoration (Egotally-style) ── */
+.hero-em {
+  position: relative;
+  display: inline-block;
+}
+.hero-em::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 3px;
+  background: currentColor;
+  border-radius: 2px;
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+/* ── Feature card top-border hover ── */
+.feat-card-inner {
+  position: relative;
+}
+.feat-card-inner::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: #f0724f;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 22px 22px 0 0;
+  z-index: 1;
+}
+.feat-card-inner:hover::before {
+  transform: scaleX(1);
+}
+
 /* ── Mobile responsiveness ── */
 
 @media (max-width: 767px) {
@@ -83,7 +121,8 @@ h1, h2, h3, h4, h5, h6 {
 
   /* Hero */
   .hero-grid      { grid-template-columns: 1fr !important; gap: 0 !important; }
-  .hero-phone-col { display: none !important; }
+  .hero-phone-col { height: auto !important; padding-bottom: 0 !important; }
+  .phone-float    { display: none !important; }
   .hero-h1        { font-size: 38px !important; }
   .hero-stats     { gap: 24px !important; }
   .hero-form-row  { flex-direction: column !important; align-items: stretch !important; }

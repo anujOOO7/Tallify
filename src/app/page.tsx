@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Features from "@/components/Features";
@@ -11,6 +14,22 @@ import WaitlistCTA from "@/components/WaitlistCTA";
 import Footer from "@/components/Footer";
 
 export default function Home() {
+  useEffect(() => {
+    const section = sessionStorage.getItem("scrollTo");
+    if (!section) return;
+    sessionStorage.removeItem("scrollTo");
+    const pathMap: Record<string, string> = { features: "/features", pricing: "/pricing" };
+    const el = document.getElementById(section);
+    if (el) {
+      setTimeout(() => {
+        const top = el.getBoundingClientRect().top + window.scrollY - 64;
+        window.scrollTo({ top, behavior: "smooth" });
+        // Update URL without hash
+        if (pathMap[section]) history.replaceState(null, "", pathMap[section]);
+      }, 100);
+    }
+  }, []);
+
   return (
     <main>
       <Navbar />
